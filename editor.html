@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+  <title>Editor</title>
+  <style type="text/css" media="screen">
+    body {
+        overflow: hidden;
+        margin: 0;
+    }
+
+    #editor {
+        position: absolute;
+        top: 0;
+        left: 0;
+
+        width: 75%;
+        height: 100%;
+    }
+
+    #sidebar {
+        position: absolute;
+        top: 0;
+        right: 0;
+
+        width: 25%;
+        height: 100%;
+    }
+
+    #button-run {
+        background: green;
+        color: white;
+        border: 1px solid gray;
+        padding: 4px 20px;
+        cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+
+<div id="container">
+    <pre id="editor">var isim = 'şeyma';
+return isim;</pre>
+
+    <div id="sidebar">
+        <div id="nav">
+            <button id="button-run">Çalıştır</button>
+        </div>
+        <div id="output"></div>
+    </div>
+</div>
+
+<script src="assets/scripts/ace/ace.js" type="text/javascript" charset="utf-8"></script>
+<script>
+    var editor = ace.edit('editor');
+    editor.setTheme('ace/theme/twilight');
+    editor.session.setMode('ace/mode/javascript');
+
+    var runButton = document.getElementById('button-run');
+    runButton.addEventListener('click', function () {
+        var output = eval('(function () { ' + editor.getValue() + '; })();');
+        document.getElementById('output').innerText = output;
+    });
+</script>
+
+</body>
+</html>
